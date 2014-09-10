@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/form-style.css">
+		<title>Allen's Blog v1.0</title>
+	</head>
+	<h2 id="title">Welcome to Allen's Blog!</h2>
+	<form method="post">
+		<div class="titles">
+			Please enter a title: 
+			<input id="title_box" type="text" name="subject" value="{{title}}">
+		</div>
+	<br>
+		<div class="titles">
+			Enter your blog's content below:
+		</div>
+		<div id="textarea_box_div">
+			<textarea id="textarea_box" name="content">{{content}}</textarea>
+		</div>
+		<div class="titles">
+			<input id="submit_button" type="submit" value="Submit this post!">
+		</div>
+		<br>
+		<div id="error_message">{{error_message}}</div>
+		<br>
+		{% for x in data %}
+		<hr>
+			<div class="content">
+					<div class="content-time">{{x.created}}</div>
+					<div class="content-title"><u>{{x.title}}</u></div>
+				<br>
+					<pre class="content-body">{{x.content}}</pre>
+			</div>
+		<br>
+		{% endfor %}
+	</form>
+</html>

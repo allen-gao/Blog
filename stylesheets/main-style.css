@@ -1,0 +1,39 @@
+.content-title
+{
+	font-family: Comic Sans MS;
+	margin: 0 auto;
+	font-size: 25px;
+	text-align: center;
+}
+
+.content-body
+{
+	font-family: Comic Sans MS;
+	margin: 0 auto;
+	font-size: 18px;
+	text-align: center;
+}
+
+.content-time
+{
+	font-family: Comic Sans MS;
+	font-size: 12px;
+	text-align: right;
+}
+
+#title
+{
+	font-family: Comic Sans MS;
+	font-size: 40px;
+	text-align: center;
+}
+
+
+.submit
+{
+	text-decoration: none;
+	color: blue;
+	font-family: Comic Sans MS;
+	font-size: 25px;
+	text-align: center;
+}

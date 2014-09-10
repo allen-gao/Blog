@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/main-style.css">
+		<title>Allen's Blog v1.0</title>
+	</head>
+	<body>
+		<h2 id="title">Welcome to Allen's Blog!</h2>
+		<div class="submit"><a class="submit" href="/newpost">Click here to submit a new post!</a></div>
+		<br>
+		{% for x in data %}
+		<hr>
+			<div class="content">
+					<div class="content-time">{{x.created}}</div>
+					<div class="content-title"><u>{{x.title}}</u></div>
+				<br>
+					<pre class="content-body">{{x.content}}</pre>
+			</div>
+		<br>
+		{% endfor %}
+</html>
