@@ -6,6 +6,7 @@
 		<title>Allen's Blog v1.0</title>
 	</head>
 	<h2 id="title">Welcome to Allen's Blog!</h2>
+	{% if valid_cookie %}
 	<form method="post">
 		<div class="titles">
 			Please enter a title: 
@@ -23,10 +24,21 @@
 		</div>
 		<br>
 		<div id="error_message">{{error_message}}</div>
+		</form>
+		{% endif %}
+
+		{% if not valid_cookie %}
+		<div>Please login to continue.
+			<a href="/signup">Signup</a>
+			<a href="/login">Login</a>
+		</div>
+		{% endif %}
+		<a href="/">Click here to return to the main page</a>
 		<br>
-		{% for x in data %}
+		{% for x in data[0:9] %}
 		<hr>
 			<div class="content">
+					<div class="content-user">Submitted by {{x.user}}</div>
 					<div class="content-time">{{x.created}}</div>
 					<div class="content-title"><u>{{x.title}}</u></div>
 				<br>
@@ -34,5 +46,4 @@
 			</div>
 		<br>
 		{% endfor %}
-	</form>
 </html>

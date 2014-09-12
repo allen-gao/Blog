@@ -6,12 +6,20 @@
 		<title>Allen's Blog v1.0</title>
 	</head>
 	<body>
+		{% if not valid_cookie %}
+			<a href="/signup">Signup</a>
+			<a href="/login">Login</a>
+		{% endif %}
+		{% if valid_cookie %}
+			<a href="/logout">Logout</a>
+		{% endif %}
 		<h2 id="title">Welcome to Allen's Blog!</h2>
 		<div class="submit"><a class="submit" href="/newpost">Click here to submit a new post!</a></div>
 		<br>
 		{% for x in data %}
 		<hr>
 			<div class="content">
+					<div class="content-user">Submitted by {{x.user}}</div>
 					<div class="content-time">{{x.created}}</div>
 					<div class="content-title"><u>{{x.title}}</u></div>
 				<br>

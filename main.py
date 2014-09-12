@@ -19,6 +19,9 @@ import os
 import webapp2
 import jinja2
 import re
+import hashlib
+import random
+import string
 
 from google.appengine.ext import db
 from random import randint
@@ -26,8 +29,10 @@ from random import randint
 template_dir= os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 
+# This key is used when hashing the username cookie.
+user_key = "UdacityCS253"
 
-# The following Handler class is obtained for CS253 on Udacity
+# The following Handler class is obtained from CS253 on Udacity
 class Handler(webapp2.RequestHandler):
 	def write(self, *a, **kw):
 		self.response.out.write(*a, **kw)
@@ -37,41 +42,57 @@ class Handler(webapp2.RequestHandler):
 	def render(self, template, **kw):
 		self.write(self.render_str(template, **kw))
 
-class Data(db.Model):
+class Posts(db.Model):
 	title = db.StringProperty(required = True)
 	content = db.TextProperty(required = True)
+	created = db.DateTimeProperty(auto_now_add = True)
+	user = db.StringProperty(required = True)
+
+class Users(db.Model):
+	username = db.StringProperty(required = True)
+	password = db.StringProperty(required = True)
 	created = db.DateTimeProperty(auto_now_add = True)
 
 class MainHandler(Handler):
 	def render_front(self, title="", content="", error_message=""):
-		data = db.GqlQuery("SELECT * FROM Data ORDER BY created DESC")
-		self.render("form.html", title=title, content=content, error_message=error_message, data=data)
-
+		data = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC")
+		self.render("form.html", title=title, content=content, error_message=error_message, data=data, 
+					valid_cookie=check_username_cookie(self.request.cookies.get("name")))
 	def get(self):
 		self.render_front()
 	def post(self):
 		title = self.request.get("subject")
 		content = self.request.get("content")
-		if title == "" and content == "":
+		if check_username_cookie(self.request.cookies.get("name")) == False:
+			self.redirect('/signup')
+		elif title == "" and content == "":
 			self.render_front(error_message="You're missing the title and content!")
 		elif title == "":
 			self.render_front(content=content, error_message="You're missing the title!")
 		elif content == "":
 			self.render_front(title=title, error_message="You're missing the blog's content!")
 		else:
-			content = Data(title = title, content = content)
+			user_id = (self.request.cookies.get("name")).split('|')[0]
+			users = db.GqlQuery("SELECT * FROM Users")
+			user = "Anonymous"
+			for x in users:
+				if user_id == str(x.key().id()):
+					user = x.username
+
+
+			content = Posts(title = title, content = content, user=user)
 			post = content.put()
 			self.redirect("/post/%s" % post.id())
 
 class MainPage(Handler):
 	def get(self):
-		data = db.GqlQuery("SELECT * FROM Data ORDER BY created DESC")
-		self.render("main_page.html", data=data)
+		data = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC")
+		self.render("main_page.html", data=data, valid_cookie=check_username_cookie(self.request.cookies.get("name")))
 
 class PostHandler(Handler):
 	def get(self, id):
 		id = int(id)
-		post = Data.get_by_id(int(id))
+		post = Posts.get_by_id(int(id))
 		self.render("single_post.html", subject=post.title, content=post.content, id=id, time=post.created)
 
 
@@ -89,6 +110,40 @@ def valid_email(email):
 	USER_RE = re.compile(r"^[\S]+@[\S]+\.[\S]+$")
 	return email == "" or USER_RE.match(email)
 
+def create_user_hash(username):
+	return username + '|' + hashlib.sha256(user_key + username).hexdigest()
+
+def check_username_cookie(hash):
+	if not isinstance(hash, basestring):
+		return False
+	list = hash.split('|')
+	if len(list) != 2:
+		return False
+	return hash == create_user_hash(list[0])
+
+def make_salt():
+    return ''.join(random.choice(string.letters) for x in xrange(5))
+
+def make_pw_hash(name, pw):
+    salt = make_salt()
+    h = hashlib.sha256(name + pw + salt).hexdigest()
+    return '%s,%s' % (h, salt)
+
+def valid_pw(name, pw, h):
+    list = h.split(',')
+    salt = list[1]
+    print salt
+    hash = list[0]
+    return hashlib.sha256(name + pw + salt).hexdigest() == hash
+
+def taken_username(username):
+	data = db.GqlQuery("SELECT * FROM Users")
+	for x in data:
+		if username == x.username:
+			return True
+		else:
+			return False
+        	
 
 class SignupHandler(Handler):
     def get(self):
@@ -112,15 +167,54 @@ class SignupHandler(Handler):
         if p1 != p2:
         	p2_error = "The passwords don't match"
         if valid_username(username) and valid_password(p1) and (p1 == p2) and valid_email(email):
-        	self.response.headers.add_header("Set-Cookie", str("name=%s" % username))
-        	self.redirect("/welcome")
-        else:
-        	self.render("signup.html", name=username, p1="", p2="", email=email, name_error=p_name_error, p1_error=p1_error, p2_error=p2_error, email_error=p_email_error)
+
+        	if taken_username(username):
+        		p_name_error = "Username already taken!"
+        	else:
+        		user = Users(username=username, password=make_pw_hash(username, p1))
+        		id = user.put().id()
+        		hash = create_user_hash(str(id))
+        		self.response.headers.add_header("Set-Cookie", str("name=%s" % hash))
+        		self.redirect("/welcome")
+        self.render("signup.html", name=username, p1="", p2="", email=email, name_error=p_name_error, p1_error=p1_error, p2_error=p2_error, email_error=p_email_error)
    
+
 class WelcomeHandler(Handler):
 	def get(self):
-		name = self.request.cookies.get("name")
-		self.write("Welcome, %s" % name)
+		hash = self.request.cookies.get("name", "")
+		if check_username_cookie(hash):
+			list = hash.split('|')
+			id = list[0]
+			data = db.GqlQuery("SELECT * FROM Users")
+			name = "new user!"
+			for x in data:
+				if id == str(x.key().id()):
+					name = x.username
+			self.render("welcome.html", name=name)
+		else:
+			self.redirect('/signup')
+
+class LoginHandler(Handler):
+	def get(self):
+		self.render("login.html")
+	def post(self):
+		username = self.request.get("username")
+		password = self.request.get("password")
+		data = db.GqlQuery("SELECT * FROM Users")
+		for x in data:
+			if x.username == username:
+				if valid_pw(username, password, x.password):
+					hash = create_user_hash(str(x.key().id()))
+					self.response.headers.add_header("Set-Cookie", str("name=%s; Path=/" % hash))
+					self.redirect('/welcome')
+		self.render("login.html", error="Incorrect Username/Password")
+
+
+class LogoutHandler(Handler):
+        def get(self):
+                self.response.headers.add_header("Set-Cookie", str("name=; Path=/"))
+                self.redirect('/signup')
+
 
 
 app = webapp2.WSGIApplication([
@@ -128,5 +222,7 @@ app = webapp2.WSGIApplication([
 	('/post/(\d+)', PostHandler), 
 	('/', MainPage),
 	('/signup', SignupHandler),
-	('/welcome', WelcomeHandler)
+	('/welcome', WelcomeHandler),
+	('/login', LoginHandler),
+	('/logout', LogoutHandler)
 	], debug=True)
