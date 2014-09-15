@@ -29,8 +29,8 @@ from random import randint
 template_dir= os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 
-# This key is used when hashing the username cookie.
-user_key = "UdacityCS253"
+import userkey
+user_key = userkey.key
 
 # The following Handler class is obtained from CS253 on Udacity
 class Handler(webapp2.RequestHandler):
@@ -53,10 +53,10 @@ class Users(db.Model):
 	password = db.StringProperty(required = True)
 	created = db.DateTimeProperty(auto_now_add = True)
 
-class MainHandler(Handler):
+class NewPostHandler(Handler):
 	def render_front(self, title="", content="", error_message=""):
-		data = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC")
-		self.render("form.html", title=title, content=content, error_message=error_message, data=data, 
+		data = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC LIMIT 10")
+		self.render("newpost.html", title=title, content=content, error_message=error_message, data=data, 
 					valid_cookie=check_username_cookie(self.request.cookies.get("name")))
 	def get(self):
 		self.render_front()
@@ -86,14 +86,14 @@ class MainHandler(Handler):
 
 class MainPage(Handler):
 	def get(self):
-		data = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC")
+		data = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC LIMIT 25")
 		self.render("main_page.html", data=data, valid_cookie=check_username_cookie(self.request.cookies.get("name")))
 
 class PostHandler(Handler):
 	def get(self, id):
 		id = int(id)
 		post = Posts.get_by_id(int(id))
-		self.render("single_post.html", subject=post.title, content=post.content, id=id, time=post.created)
+		self.render("single_post.html", subject=post.title, content=post.content, id=id, time=post.created.strftime("%B %d, %Y"))
 
 
 def valid_username(username):
@@ -137,9 +137,10 @@ def valid_pw(name, pw, h):
     return hashlib.sha256(name + pw + salt).hexdigest() == hash
 
 def taken_username(username):
+	lower_name = username.lower()
 	data = db.GqlQuery("SELECT * FROM Users")
 	for x in data:
-		if username == x.username:
+		if lower_name == x.username:
 			return True
 		else:
 			return False
@@ -186,7 +187,7 @@ class WelcomeHandler(Handler):
 			list = hash.split('|')
 			id = list[0]
 			data = db.GqlQuery("SELECT * FROM Users")
-			name = "new user!"
+			name = "new user"
 			for x in data:
 				if id == str(x.key().id()):
 					name = x.username
@@ -218,7 +219,7 @@ class LogoutHandler(Handler):
 
 
 app = webapp2.WSGIApplication([
-	('/newpost', MainHandler), 
+	('/newpost', NewPostHandler), 
 	('/post/(\d+)', PostHandler), 
 	('/', MainPage),
 	('/signup', SignupHandler),

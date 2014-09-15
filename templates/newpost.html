@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/newpost-style.css">
+		<title>Allen's Blog: Submit a new post here!</title>
+	</head>
+	<body>
+	<div id="main">
+	<h2 id="title"><a id="title_link" href="/">Allen's Blog</a></h2>
+	{% if valid_cookie %}
+	<form method="post">
+		<div class="titles">
+			<input id="title_box" type="text" name="subject" value="{{title}}" placeholder="Enter your title here">
+		</div>
+	<br>
+		<div class="titles">
+			<textarea id="textarea_box" name="content" placeholder="Enter your blog's content here">{{content}}</textarea>
+		</div>
+		<div class="titles">
+			<input id="submit_button" type="submit" value="Submit this post!">
+		</div>
+		<div id="error_message">{{error_message}}</div>
+		</form>
+		{% endif %}
+
+		{% if not valid_cookie %}
+		<p id="please_login">Please login to continue.
+			<a class="signup_login" href="/signup">Signup</a> | 
+			<a class="signup_login" href="/login">Login</a>
+		</p>
+		<br>
+		{% endif %}
+		<p id="below_subs">Below are the 10 most recent submissions</p>
+		{% for x in data %}
+		<hr>
+			<div class="content">
+					<div id="user_date">
+						<span id="content-user">Submitted by {{x.user}} on {{x.created.strftime("%B %d, %Y")}}</span>
+					</div>
+					<div class="content-title">{{x.title}}</div>
+				<br>
+					<p class="content-body">{{x.content}}</p>
+			</div>
+		<br>
+		{% endfor %}
+	</div>
+	</body>
+</html>

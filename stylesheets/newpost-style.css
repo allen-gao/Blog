@@ -1,0 +1,169 @@
+
+body
+{
+	background-color: #DCDCDC;
+}
+
+
+#main
+{
+	width: 850px;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px solid grey;
+	background-color: #FFFFFF;
+	font-family: Open Sans;
+}
+
+#below_subs
+{
+	text-align: center;
+	font-size: 20px;
+}
+
+#title
+{
+	font-family: Raleway, Lucida Grande;
+	font-size: 40px;
+	text-align: center;
+}
+
+#title_link
+{
+	text-decoration: none;
+	color: black;
+}
+
+#title_link:hover
+{
+	text-decoration: none;
+	color: #FF00FF;
+}
+
+#title_link:active
+{
+	text-decoration: none;
+	color: #0000FF;
+}
+
+.titles
+{
+	text-align: center;
+}
+
+#title_box
+{
+	width: 800px;
+	height: 30px;
+	font-family: Raleway, Lucida Grande;
+	font-size: 20px;
+	border: 1px solid #8D8D7E;
+	border-radius: 10px;
+	padding-left: 14px;
+	margin: 0 auto;
+}
+
+
+
+#textarea_box_div
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 800px;
+	color: white;
+}
+
+
+#textarea_box
+{
+	width: 800px;
+	height: 400px;
+	border: 1px solid #8D8D7E;
+	font-size: 14px;
+	resize: vertical;
+	border-radius: 10px;
+	padding-left: 14px;
+	margin: 0 auto;
+	font-family: Open Sans;
+}
+
+#submit_button
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	font-size: 15px;
+	color: white;
+	background-color: #4B6CDB;
+	margin: 5px 5px 5px 5px;
+	font-family: Open Sans;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+#error_message
+{
+	font-size: 20px;
+	color: red;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.content-title
+{
+	font-family: Raleway;
+	margin: 0 auto;
+	font-size: 25px;
+	text-align: left;
+	word-wrap: break-word;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.content-body
+{
+	margin: 0 auto;
+	font-size: 14px;
+	text-align: left;
+	word-wrap: break-word;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#content-time
+{
+	text-align: right;
+	font-size: 12px;
+	color: grey;
+
+}
+
+#content-user
+{
+	text-align: right;
+	font-size: 12px;
+	color: grey;
+}
+
+#user_date
+{
+	text-align: right;
+}
+
+#please_login
+{
+	text-align: center;
+}
+
+.signup_login
+{
+	text-decoration: none;
+	color: blue;
+}
+
+.signup_login:hover
+{
+	color: #6798BF;
+}

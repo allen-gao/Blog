@@ -1,0 +1,38 @@
+body
+{
+	background-color: #DCDCDC;
+}
+
+
+#main
+{
+	width: 850px;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px solid grey;
+	background-color: #FFFFFF;
+	font-family: Open Sans;
+}
+
+#welcome
+{
+	text-align: center;
+	font-family: Raleway;
+	font-size: 25px;
+}
+
+#return
+{
+	text-decoration: none;
+	color: blue;
+}
+
+#return:hover
+{
+	color: #6798BF;
+}
+
+#return_div
+{
+	text-align: center;
+}

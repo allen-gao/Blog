@@ -1,0 +1,65 @@
+body
+{
+	background-color: #DCDCDC;
+}
+
+
+#main
+{
+	width: 850px;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px solid grey;
+	background-color: #FFFFFF;
+	font-family: Open Sans;
+}
+
+#login
+{
+	padding-left: 10px;
+}
+
+#link
+{
+	text-decoration: none;
+	color: #2E489E;
+}
+
+#link:hover
+{
+	color: #6798BF;
+}
+
+#title
+{
+	font-family: Raleway, Lucida Grande;
+	font-size: 30px;
+	text-align: left;
+	padding-left: 20px;
+}
+
+.input
+{
+	font-family: Open Sans;
+	border-radius: 2px;
+	padding: 5px 5px 5px 5px;
+	width: 250px;
+	margin: 5px 5px 5px 5px;
+}
+
+#submit_button
+{
+	color: white;
+	background-color: #4B6CDB;
+	margin: 5px 5px 5px 5px;
+	font-family: Open Sans;
+	border-radius: 10px;
+	padding: 5px;
+	width: 150px;
+	font-size: 15px;
+}
+
+.error
+{
+	color: red;
+}

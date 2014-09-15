@@ -3,28 +3,44 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="/stylesheets/main-style.css">
-		<title>Allen's Blog v1.0</title>
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<title>Allen's Blog</title>
 	</head>
 	<body>
-		{% if not valid_cookie %}
-			<a href="/signup">Signup</a>
-			<a href="/login">Login</a>
-		{% endif %}
-		{% if valid_cookie %}
-			<a href="/logout">Logout</a>
-		{% endif %}
-		<h2 id="title">Welcome to Allen's Blog!</h2>
-		<div class="submit"><a class="submit" href="/newpost">Click here to submit a new post!</a></div>
-		<br>
-		{% for x in data %}
-		<hr>
-			<div class="content">
-					<div class="content-user">Submitted by {{x.user}}</div>
-					<div class="content-time">{{x.created}}</div>
-					<div class="content-title"><u>{{x.title}}</u></div>
-				<br>
-					<pre class="content-body">{{x.content}}</pre>
-			</div>
-		<br>
-		{% endfor %}
+		<div id="main">
+			{% if not valid_cookie %}
+				<a class="signup_login" href="/signup">Signup</a> |
+				<a class="signup_login" href="/login">Login</a>
+			{% endif %}
+			{% if valid_cookie %}
+				<a class="signup_login" href="/logout">Logout</a>
+			{% endif %}
+			<h2 id="title">Welcome to Allen's Blog!</h2>
+				<div id="submit"><a id="click_here" href="/newpost">Click here to submit a new post!</a></div>
+			<br>
+				<h3 id="about-title">About this site</h3>
+				<p id="about-info">This is a simple blog site created by Allen Gao. 
+				   Here, users can create their own accounts and submit posts on the site's main wall. 
+
+				   This site is created with the webapp2 Python Framework in Google App Engine. For more 
+				   information (including the source code), check out this site's Github repository 
+				   <a id="github_link" href="https://github.com/allen-gao/Blog">here</a>.
+				</p>
+			<br>
+				<p id="below_subs">Below are the 25 most recent submissions</p>
+			{% for x in data %}
+			<hr>
+				<div class="content">
+						<div id="user_date">
+							<span id="content-user">Submitted by {{x.user}} on {{x.created.strftime("%B %d, %Y")}}</span>
+						</div>
+						<div class="content-title">{{x.title}}</div>
+					<br>
+						<p class="content-body">{{x.content}}</p>
+				</div>
+			<br>
+			{% endfor %}
+		</div>
+	</body>
 </html>

@@ -1,18 +1,27 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-	<title>Sign up a new account</title>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/signup-style.css">
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<title>Sign up a new account</title>
+	</head>
+<body>
 	<form method="post">
-<h3>Sign up for a new account!</h3>
-Enter your username: <input name="username" value="{{name}}">{{name_error}}
-<br>
-Enter your password: <input name="password" value="{{p1}}" type="password">{{p1_error}}
-<br>
-Confirm your password: <input name="verify" value="{{p2}}" type="password">{{p2_error}}
-<br>
-Enter your email (optional): <input name="email" value="{{email}}">{{email_error}}
-<br>
-<input type="submit" value="Click here to signup">
-<br>
-<a href="login">Click here to login as an existing user</a>
+	<div id="main">
+		<p id="title">Sign Up</p>
+			<input class="input" name="username" value="{{name}}" placeholder="Username"><span class="error">{{name_error}}</span>
+		<br>
+			<input class="input" name="password" value="{{p1}}" type="password" placeholder="Password"><span class="error">{{p1_error}}</span>
+		<br>
+			<input class="input" name="verify" value="{{p2}}" type="password" placeholder="Confirm Password"><span class="error">{{p2_error}}</span>
+		<br>
+			<input class="input" name="email" value="{{email}}" placeholder="Email (optional)"><span class="error">{{email_error}}</span>
+		<br>
+			<input id="submit_button" type="submit" value="Sign Up">
+		<br>
+			<p id="login">Existing user? <a id = "link" href="/login">Click here to login</a></p>
+	</div>
+	</form>
+</body>
 </html>

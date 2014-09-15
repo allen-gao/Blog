@@ -2,16 +2,19 @@
 
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/stylesheets/post-style.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/singlepost-style.css">
+		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<title>Your Blog Post: #{{id}}</title>
 	</head>
 	<body>
-		<div id="time">{{time}}</div>
-		<div id="title">{{subject}}</div>
-		<hr>
-		<div id="content">{{content}}</div>
-		<hr>
+		<div id="main">
+			<div id="content-time">{{time}}</div>
+			<div id="content-title">{{subject}}</div>
 		<br>
-		<div id="button"><a href="/">Click here to return to the main page</a></div>
+			<p id="content-body">{{content}}</p>
+			<hr>
+			<br>
+			<div id="return_div"><a id="return" href="/">Click here to return to the main page</a></div>
 	</body>
 </html>
