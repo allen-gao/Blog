@@ -1,15 +1,13 @@
 Blog
 ====
 A simple blog created with the webapp2 Python framework in Google App Engine, with the help of CS253 on Udacity.
-
+****
 This site uses:
-
--HTML5/CSS3
--webapp2 Python framework
--GQL for database queries
--Jinja2 for HTML templates
-
-
+- HTML5/CSS3
+- webapp2 Python framework
+- GQL for database queries
+- Jinja2 for HTML templates
+****
 To deploy this site:
 
 1. Download and install Google App Engine for Python here: https://developers.google.com/appengine/downloads
