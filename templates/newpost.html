@@ -13,11 +13,11 @@
 	{% if valid_cookie %}
 	<form method="post">
 		<div class="titles">
-			<input id="title_box" type="text" name="subject" value="{{title}}" placeholder="Enter your title here">
+			<input id="title_box" type="text" name="subject" value="{{title}}" placeholder="Enter your title here" maxlength="499">
 		</div>
 	<br>
 		<div class="titles">
-			<textarea id="textarea_box" name="content" placeholder="Enter your blog's content here">{{content}}</textarea>
+			<textarea id="textarea_box" name="content" placeholder="Enter your blog's content here" maxlength="200000">{{content}}</textarea>
 		</div>
 		<div class="titles">
 			<input id="submit_button" type="submit" value="Submit this post!">
