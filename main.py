@@ -161,22 +161,20 @@ class SignupHandler(Handler):
     	p2_error = ""
         if not valid_username(username):
         	p_name_error = "Please enter a valid username"
+        if taken_username(username):
+        	p_name_error = "Username already taken!"
         if not valid_email(email):
         	p_email_error = "Please enter a valid email"
         if not valid_password(p1):
         	p1_error = "Please enter a valid password"
         if p1 != p2:
         	p2_error = "The passwords don't match"
-        if valid_username(username) and valid_password(p1) and (p1 == p2) and valid_email(email):
-
-        	if taken_username(username):
-        		p_name_error = "Username already taken!"
-        	else:
-        		user = Users(username=username, password=make_pw_hash(username, p1))
-        		id = user.put().id()
-        		hash = create_user_hash(str(id))
-        		self.response.headers.add_header("Set-Cookie", str("name=%s" % hash))
-        		self.redirect("/welcome")
+        if valid_username(username) and valid_password(p1) and (p1 == p2) and valid_email(email) and not taken_username(username):
+        	user = Users(username=username, password=make_pw_hash(username, p1))
+        	id = user.put().id()
+        	hash = create_user_hash(str(id))
+        	self.response.headers.add_header("Set-Cookie", str("name=%s" % hash))
+        	self.redirect("/welcome")
         self.render("signup.html", name=username, p1="", p2="", email=email, name_error=p_name_error, p1_error=p1_error, p2_error=p2_error, email_error=p_email_error)
    
 
