@@ -18,3 +18,10 @@ A simple blog created with the webapp2 Python framework in Google App Engine, wi
 - GQL for database queries
 - Jinja2 for HTML templates
 ****
+**A few notes/features:**
+
+- Passwords stored in the database are hashed with SHA-256 and salted
+- Login information is stored in a username cookie
+- The username cookie is validated by comparing the user ID with the hashed concatenation of itself and a secret key
+- Character escaping is used to prevent HTML injection
+- Regular expressions are used to validate usernames, emails, and passwords
