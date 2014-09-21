@@ -43,6 +43,12 @@ body
 	font-size: 15px;
 }
 
+#submit_button:hover
+{
+	background-color: #6F89E2;
+	border: outset 2px #33CC33;
+}
+
 #signup
 {
 	padding-left: 10px;
