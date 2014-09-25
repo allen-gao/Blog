@@ -87,7 +87,8 @@ class NewPostHandler(Handler):
 class MainPage(Handler):
 	def get(self):
 		data = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC LIMIT 25")
-		self.render("main_page.html", data=data, valid_cookie=check_username_cookie(self.request.cookies.get("name")))
+		users = db.GqlQuery("SELECT * FROM Users ORDER BY created DESC LIMIT 4")
+		self.render("main_page.html", data=data, users=users, valid_cookie=check_username_cookie(self.request.cookies.get("name")))
 
 class PostHandler(Handler):
 	def get(self, id):

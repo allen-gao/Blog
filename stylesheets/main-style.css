@@ -1,19 +1,110 @@
 body
 {
-	background-color: #DCDCDC;
+	background-color: #F1F1F1;
+	/*
+	background-image: url('background.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: static;
+	background-attachment: fixed;
+	*/
 }
 
+.holder
+{
+	width: 1500px;
+	margin: 0 auto;
+}
 
-#main
+#top
+{
+	display: block;
+	width: 1500px;
+	background-color: #F1F1F1;
+}
+
+.main_holder
 {
 	width: 850px;
+	display: inline-block;
 	margin: 0 auto;
+}
+
+.main
+{
+	width: 850px;
 	padding: 10px;
-	border: 1px solid grey;
 	background-color: #FFFFFF;
 	font-family: Open Sans;
 }
 
+.title
+{
+	font-family: Raleway, Lucida Grande;
+	font-size: 40px;
+	text-align: center;
+}
+
+#line
+{
+	width: 1480px;
+	height: 15px;
+	background-color: #d0d0d0;
+	margin: 0 auto;
+	padding-left: 10px;
+}
+
+.recent_posts
+{
+	background-color: white;
+	display: inline-block;
+	width: 290px;
+	height: 243px;
+	font-family: Open Sans;
+	float: left;
+	margin-right: 25px;
+	margin-top: 18px;
+}
+
+.new_users
+{
+	background-color: white;
+	display: inline-block;
+	width: 290px;
+	height: 243px;
+	font-family: Open Sans;
+	float: right;
+	margin-left: 25px;
+	margin-top: 18px;
+}
+
+.sidebar_head
+{
+	text-align: center;
+	font-size: 24px;
+	background-color: #d0d0d0;
+	height: 40px;
+	padding-top: 7px;
+}
+
+#sidebar_content_users
+{
+	font-size: 18px;
+	padding-left: 30px;
+}
+
+#sidebar_content_posts p
+{
+	font-size: 14px;
+	padding-left: 15px;
+}
+
+.content
+{
+	background-color: white;
+	padding: 5px 10px 10px 10px;
+	border: 1px solid #DCDCD7;
+}
 
 .content-title
 {
@@ -44,26 +135,19 @@ body
 
 }
 
-#content-user
+.content-user
 {
 	text-align: right;
 	font-size: 12px;
 	color: grey;
 }
 
-#user_date
+.user_date
 {
 	text-align: right;
 }
 
-#title
-{
-	font-family: Raleway, Lucida Grande;
-	font-size: 40px;
-	text-align: center;
-}
-
-#below_subs
+.below_subs
 {
 	text-align: center;
 	font-size: 20px;
@@ -118,4 +202,18 @@ body
 .signup_login:hover
 {
 	color: #6798BF;
+}
+
+#submit_button
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	font-size: 15px;
+	color: white;
+	background-color: #4B6CDB;
+	margin: 5px 5px 5px 5px;
+	font-family: Open Sans;
+	border-radius: 10px;
+	padding: 5px;
 }
