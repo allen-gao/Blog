@@ -7,8 +7,11 @@
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<title>Allen's Blog</title>
 	</head>
+
 	<body>
-		<div id="main">
+	<div class="holder">
+	
+		<div class="main" id="top">
 			{% if not valid_cookie %}
 				<a class="signup_login" href="/signup">Signup</a> |
 				<a class="signup_login" href="/login">Login</a>
@@ -16,9 +19,15 @@
 			{% if valid_cookie %}
 				<a class="signup_login" href="/logout">Logout</a>
 			{% endif %}
-			<h2 id="title">Welcome to Allen's Blog!</h2>
+			<h2 class="title">Allen's Blog</h2>
 				<div id="submit"><a id="click_here" href="/newpost">Click here to submit a new post!</a></div>
 			<br>
+				<div id="line"></div>
+		</div>
+		<br>
+		<div class="main_holder">
+			<br>
+		<div class="main">
 				<h3 id="about-title">About this site</h3>
 				<p id="about-info">This is a simple blog site created by Allen Gao. 
 				   Here, users can create their own accounts and submit posts on the site's main wall. 
@@ -28,12 +37,14 @@
 				   <a id="github_link" href="https://github.com/allen-gao/Blog">here</a>.
 				</p>
 			<br>
-				<p id="below_subs">Below are the 25 most recent submissions</p>
+				<p class="below_subs">Below are the 25 most recent submissions</p>
+		</div>
+		<br>
+		<br>
 			{% for x in data %}
-			<hr>
-				<div class="content">
-						<div id="user_date">
-							<span id="content-user">Submitted by {{x.user}} on {{x.created.strftime("%B %d, %Y")}}</span>
+				<div class="content main">
+						<div class="user_date">
+							<span class="content-user">Submitted by {{x.user}} on {{x.created.strftime("%B %d, %Y")}}</span>
 						</div>
 						<div class="content-title">{{x.title}}</div>
 					<br>
@@ -41,6 +52,25 @@
 				</div>
 			<br>
 			{% endfor %}
+	</div> 
+	
+		<div class="recent_posts">
+			<div class="sidebar_head">Recent Posts</div>
+			<div id="sidebar_content_posts">
+			{% for x in data[0:4] %}
+				<p>&middot; {{x.title}}</p>
+			{% endfor %}
+			</div>
 		</div>
+		<div class="new_users">
+			<div class="sidebar_head">New Users</div>
+			<div id="sidebar_content_users">
+			{% for x in users %}
+				<p>&middot; {{x.username}}</p>
+			{% endfor %}
+			</div>
+		</div>
+	
+	</div>
 	</body>
 </html>
