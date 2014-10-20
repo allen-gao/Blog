@@ -2,7 +2,7 @@ Blog
 ====
 A simple blog created with the webapp2 Python framework in Google App Engine, with the help of CS253 on Udacity.
 ****
-**(For developers) To deploy this site:**
+**(For developers) To deploy this site locally:**
 
 1. Download and install Google App Engine for Python here: https://developers.google.com/appengine/downloads
 2. Download and Install Python 2.7x from here: https://www.python.org/downloads/
