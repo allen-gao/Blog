@@ -1,6 +1,6 @@
 Blog
 ====
-A simple blog created with the webapp2 Python framework in Google App Engine, with the help of CS253 on Udacity.
+A simple blog created with the webapp2 Python framework in Google App Engine, with the help of CS253 on Udacity. You can check out the site here: http://allengao-blog.appspot.com/
 ****
 **(For developers) To deploy this site locally:**
 
