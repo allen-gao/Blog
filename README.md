@@ -1,27 +1,20 @@
 Blog
 ====
 A simple blog created with the webapp2 Python framework in Google App Engine, with the help of CS253 on Udacity. You can check out the site here: http://allengao-blog.appspot.com/
-****
-**(For developers) To deploy this site locally:**
 
-1. Download and install Google App Engine for Python here: https://developers.google.com/appengine/downloads
-2. Download and Install Python 2.7x from here: https://www.python.org/downloads/
-2. Download and place the contents of this repository into a new folder
-3. Create a new .py file called userkey.py and define a constant "key" to be a random string, and place it in the new folder
-4. From the Google App Engine Launcher, go to File -> 'Add Existing Application' and choose the new folder you created
-5. Click Run and go to localhost:xxxx where xxxx is the port # (default should be localhost:8080)
-****
+**(For developers) To host this webapp locally:**
+
+1. Download and install [Google App Engine](https://developers.google.com/appengine/downloads) for Python
+2. Download and Install [Python 2.7x](https://www.python.org/downloads/)
+3. Clone this repo
+4. Create a new .py file called userkey.py and define a constant "key" to be a random string, and place it in the root directory of the repo
+5. From the Google App Engine Launcher, go to File -> 'Add Existing Application' and choose the local repo folder
+6. Click Run and go to localhost:xxxx where xxxx is the port # (default should be localhost:8080)
+
 **This site uses:**
-
-- HTML5/CSS3
-- webapp2 Python framework
-- GQL for database queries
-- Jinja2 for HTML templates
+- webapp2 Python framework for the backend
+- Google Datastore (Google's NoSQL database)
+- Raw HTML/CSS (Jinja2 for templating)
 ****
-**A few notes/features:**
 
-- Passwords stored in the database are hashed with SHA-256 and salted
-- Login information is stored in a username cookie
-- The username cookie is validated by comparing the user ID with the hashed concatenation of itself and a secret key
-- Character escaping is used to prevent HTML injection
-- Regular expressions are used to validate usernames, emails, and passwords
+No authentication library was used for this webapp so hashing, salting, and cookies were implemented manually.
