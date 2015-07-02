@@ -1,6 +1,6 @@
 Blog
 ====
-A simple blog created with the webapp2 Python framework in Google App Engine, with the help of CS253 on Udacity. You can check out the site here: http://allengao-blog.appspot.com/
+A simple blog created with the webapp2 Python framework, hosted on Google App Engine. You can check out the site here: http://allengao-blog.appspot.com/
 
 **(For developers) To host this webapp locally:**
 
@@ -15,6 +15,5 @@ A simple blog created with the webapp2 Python framework in Google App Engine, wi
 - webapp2 Python framework for the backend
 - Google Datastore (Google's NoSQL database)
 - Raw HTML/CSS (Jinja2 for templating)
-****
 
 No authentication library was used for this webapp so hashing, salting, and cookies were implemented manually.
